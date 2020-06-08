@@ -1,0 +1,20 @@
+<link rel="stylesheet" type="text/css" href="{{.Site.BaseURL}}css/partials/header.css" />
+
+<!--header partial-->
+<div id="default-header" class="row">
+    <div id="logo" class="column">
+        <!--Logo links back to homepage-->
+        <a href="{{.Site.BaseURL}}"><p>Logo</p></a>
+    </div>
+    <div id="title" class="column"><h1>{{.Title}}</h1></div>
+    <!--list the pages with the "default-button" tag-->
+    <div id="buttons" class="column">
+        {{ range .Site.Pages.ByTitle }}
+            {{if in .Params.tags "default-button"}}
+                <div id="button">
+                    <a href="{{.Permalink}}"><p>{{.Title}}</p></a>
+                </div>
+            {{end}}
+        {{ end }}
+    </div>
+</div>

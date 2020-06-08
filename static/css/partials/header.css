@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+}
+
+#default-header {
+    display: block;
+    overflow: auto;
+    width: 90%;
+    align-content: center;
+    text-align: center ;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 auto;
+}
+
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 100px;
+}
+
+/**/
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#logo {
+    background-color: blueviolet;
+}
+
+#title {
+    background-color: violet;
+}
+
+#buttons {
+    background-color: blue;
+}
+
+/*button*/
+div#button {
+    display: inline-block;
+    font-weight: bold;
+    border: black 3px  solid;
+    width: 100px;
+    vertical-align: middle;
+}
+
+@media screen and (max-width: 1300px) {
+    .column {
+        width: 100%;
+    }
+}

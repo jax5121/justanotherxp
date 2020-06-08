@@ -1,0 +1,10 @@
+div#body {
+    border: black 1px solid;
+    margin: auto;
+    width: 88%;
+    padding: 0% 1%;
+}
+
+hr {
+    width: 90%;
+}

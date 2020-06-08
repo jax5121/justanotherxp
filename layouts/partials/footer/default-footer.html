@@ -1,0 +1,11 @@
+<link rel="stylesheet" type="text/css" href="{{.Site.BaseURL}}css/partials/footer.css" />
+
+<div id="default-footer" name="footer">
+    <ul>    
+        {{ range .Site.Pages.ByTitle }}
+            {{if in .Params.tags "default-button"}}
+                <li>{{.Title}}</li>
+            {{end}}
+        {{ end }}
+    </ul>
+</div>
