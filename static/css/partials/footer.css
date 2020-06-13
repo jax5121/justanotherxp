@@ -1,6 +1,13 @@
-#default-footer {
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#footer {
     margin: auto;
     width: 90%;
     border: black solid 1px;
-    font-family: Arial, Helvetica, sans-serif;
+    text-align: right;
+    padding: 0 15px;
+    background-color: white;
 }

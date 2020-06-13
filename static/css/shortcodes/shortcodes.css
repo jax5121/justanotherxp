@@ -1,0 +1,26 @@
+/* centers the img within the div*/
+[class*="centered-image"] {
+    text-align: center;
+}
+
+[class*="centered-text"] {
+    text-align: center;    
+}
+
+[class*="heading"] {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+[class*="verse"] {
+    font-style: italic;
+
+}
+
+img.lolletter {
+    border: orange 10px solid; 
+}
+
+#caption {
+    font-style: italic;
+}

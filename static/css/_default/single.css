@@ -1,3 +1,35 @@
+/* attribute*="string" */
+[class*="LolLetter"] {
+    background-image: url("/images/projects/LolLetter/PaperTexture.jpg");
+}
+
+/*body {
+    /* place background texture in here
+    background-image: url("/images/projects/LoLLetter/FeltBg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}*/
+
+/*body:hover{
+    background: url("/images/projects/LoLLetter/FeltBg.jpg");
+    background: url("/images/projects/LoLLetter/LolBg.jpg") center fixed no-repeat;
+    background-size: cover;
+    transition: background 1s;
+}*/
+
+div.bg-image {    
+    border: black 1px solid;
+    margin: auto;
+    width: 90%;
+    padding: 0% 1%;   
+}
+
+.text {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 hr {
     width: 90%;
 }

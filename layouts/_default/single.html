@@ -5,14 +5,21 @@
     <head>
         <meta charset="UTF-8">
         <title>{{.Title}}</title>
-        {{ partial "header/default-header" . }}
+        {{ partial "header/default-header.html" . }}
     </head>
     <hr>
     <body>        
-        <div id="body">{{.Content}}</div>        
+        <div class="bg-image {{.Title}}">
+            <div class="text">
+                {{.Content}}
+                {{ if eq .Title "Contact" }}
+                    {{ partial "contact-form.html" . }}                    
+                {{ end }}                
+            </div>  
+        </div>        
     </body>
     <hr>
     <footer>
-        <p>single footer</p>
+        {{ partial "footer/default-footer" . }}
     </footer>
 </html>

@@ -1,20 +1,21 @@
 <link rel="stylesheet" type="text/css" href="{{.Site.BaseURL}}css/partials/header.css" />
 
 <!--header partial-->
-<div id="default-header" class="row">
-    <div id="logo" class="column">
+<div id="header">
+    <div id="logo-container">
         <!--Logo links back to homepage-->
-        <a href="{{.Site.BaseURL}}"><p>Logo</p></a>
+        <a href="{{.Site.BaseURL}}">
+            <img class="logo" src="/images/jaxlogo.gif" alt="Just Another eXperience logo">
+        </a>
     </div>
-    <div id="title" class="column"><h1>{{.Title}}</h1></div>
     <!--list the pages with the "default-button" tag-->
-    <div id="buttons" class="column">
+    <div id="container">
         {{ range .Site.Pages.ByTitle }}
-            {{if in .Params.tags "default-button"}}
-                <div id="button">
+            {{ if in .Params.tags "default-button" }}
+                <div class="button">
                     <a href="{{.Permalink}}"><p>{{.Title}}</p></a>
                 </div>
-            {{end}}
+            {{ end }}
         {{ end }}
     </div>
 </div>
