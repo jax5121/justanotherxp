@@ -11,7 +11,14 @@
     <body> 
         <div id="content">
             {{.Content}}
-        </div>    
+            {{ range .Pages.ByTitle }}
+                {{ if not (in .Params.tags "default-button") }}
+                    <div class="project">
+                        {{ partial "project-placeholder.html" . }}
+                    </div>
+                {{ end }}
+            {{ end }}   
+        </div>           
     </body>
     <hr>
     <footer>

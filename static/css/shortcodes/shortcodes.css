@@ -1,6 +1,7 @@
 /* centers the img within the div*/
 [class*="centered-image"] {
     text-align: center;
+    
 }
 
 [class*="centered-text"] {
