@@ -1,1 +1,7 @@
-<a href="{{.Permalink}}"><img class="project" src="/images/projects/{{.Title}}/placeholder.jpg" alt="{{.Title}} project"></a>
+<a href="{{.Permalink}}">
+    <img class="project" 
+        src="/images/{{.Title}}/placeholder.jpg" 
+        alt="{{.Title}} project" 
+        onerror="this.onerror=null;this.src='/images/coming-soon-placeholder.jpg'"
+    >
+</a>
