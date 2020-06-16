@@ -9,7 +9,11 @@
     </head>
     <hr>
     <body> 
-             
+        <div id="content">
+            {{ range .Pages }}
+                {{ partial "devotional-entry.html" . }}
+            {{ end }}
+        </div>
     </body>
     <hr>
     <footer>

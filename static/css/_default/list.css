@@ -31,3 +31,9 @@ img[class="project"] {
 img[class="project"]:hover {
     transform: scale(1.02);
 }
+
+.devotional-entry {
+    text-align: center;
+    border: black 1px solid;
+    padding: 15px ;
+}
