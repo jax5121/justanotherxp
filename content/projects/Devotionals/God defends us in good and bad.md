@@ -3,6 +3,7 @@ title: "God Defends Us in Good and Bad"
 date: 2020-06-16T13:11:00+01:00
 draft: true
 author: "James Allen"
+type: "projects/devotionals"
 ---
 
 {{<centered-text type="heading" text="God Defends Us in the Good and Bad">}}

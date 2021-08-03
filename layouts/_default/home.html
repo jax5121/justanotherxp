@@ -1,0 +1,20 @@
+<!-- default single page -->
+<link rel="stylesheet" type="text/css" href="{{.Site.BaseURL}}css/_default/list.css"/>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{.Title}}</title>
+        {{ partial "header/default-header.html" . }}
+    </head>
+    <hr>
+    <body>   
+        <div id="content">
+            {{.Content}}      
+        </div>  
+    </body>
+    <hr>
+    <footer>
+        {{ partial "footer/default-footer" . }}
+    </footer>
+</html>

@@ -1,0 +1,23 @@
+<!-- default list page -->
+<link rel="stylesheet" type="text/css" href="{{.Site.BaseURL}}css/_default/list.css"/>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{.Title}}</title>
+        {{ partial "header/default-header.html" . }}
+    </head>
+    <hr>
+    <body> 
+        <div id="lv" class="content">
+            {{.Content}}    
+            {{ range .Pages.ByTitle}}
+                {{ partial "lv-link.html" . }}
+            {{ end }}           
+        </div>           
+    </body>
+    <hr>
+    <footer>
+        {{ partial "footer/default-footer.html" . }}
+    </footer>
+</html>

@@ -20,4 +20,4 @@ This game also allows you to create and share your own games so, one evening, I 
 {{<centered-text type="heading" text="LoL Letter">}}
 So instead of buying the premium edition, I made my own! My friends and I all play the game [League of Legends]("https://euw.leagueoflegends.com/en-gb/") which contains a massive host of characters. So I thought I'll take some and use them as cards.
 
-Created a template for the cards in photoshop and using splash arts from the characters I was able to create a set of cards matching the 
+I gathered together a few of my friends and we listed characters that we thought would fit into the roles of the game. After that I created a template in photoshop and, using character splash arts from the game (I'm not THAT good at drawing!), I put together a complete set of cards that matched the expanded version of the original game.

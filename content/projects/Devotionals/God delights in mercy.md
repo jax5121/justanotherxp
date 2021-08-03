@@ -3,6 +3,7 @@ title: "God Delights in Mercy"
 date: 2020-06-12T13:43:54+01:00
 draft: true
 author: "James Allen"
+type: "projects/devotionals"
 ---
 
 {{<centered-text type="heading" text="God Delights in Mercy">}}

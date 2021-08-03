@@ -9,16 +9,11 @@
     </head>
     <hr>
     <body> 
-        <div id="content">
-            {{.Content}}
-            {{ range .Pages.ByTitle }}
-                {{ if not (in .Params.tags "default-button") }}
-                    <div class="project">
-                        {{ partial "project-placeholder.html" . }}
-                    </div>
-                {{ end }}
-            {{ end }}   
-        </div>           
+        <div class="content">
+            {{ range .Pages }}
+                {{ partial "devotional-entry.html" . }}
+            {{ end }}
+        </div>
     </body>
     <hr>
     <footer>
