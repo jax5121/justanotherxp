@@ -1,0 +1,20 @@
+<link rel="stylesheet" type="text/css" href="{{.Site.BaseURL}}css/partials/lv-link.css"/>
+
+<div class="lv-link">
+    <a href="{{.Permalink}}">
+        <img 
+            id="{{.Title}}-image"
+            class="lv-image"
+            alt={{.Title}}
+        >
+    </a>
+</div>
+<div class="lv-summary">
+    <p>{{.Title}}</p>
+</div>
+
+<script>
+    var str = "{{.Title}}";
+    str = str.replace(/\s+/g, '-').toLowerCase();
+    document.getElementById("{{.Title}}-image").src = "/images/Lyric Videos/"+str+".jpg";
+</script>
