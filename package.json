@@ -1,0 +1,29 @@
+{
+  "name": "justanotherxp",
+  "version": "1.0.0",
+  "description": "JustAnotherXp Website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon -e html,js,css server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jax5121/justanotherxp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jax5121/justanotherxp/issues"
+  },
+  "homepage": "https://github.com/jax5121/justanotherxp#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

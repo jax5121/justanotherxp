@@ -1,6 +1,0 @@
-baseURL = "http://justanotherxp.com/"
-languageCode = "en-us"
-title = "Just Another eXperience"
-[taxonomies]
-    category = "categories"
-    tag = "tags"
