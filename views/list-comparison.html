@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-List Visualizer v3</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 { margin-bottom: 20px; }
+
+        /* Controls Section */
+        .controls {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 30px;
+        }
+
+        .list-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .list-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: #fff;
+            transition: background 0.2s;
+        }
+
+        .list-row:hover {
+            border-color: #bbb;
+        }
+
+        /* Inputs and Buttons */
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+
+        input[type="color"] {
+            border: none;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            background: none;
+        }
+
+        /* Icon Buttons (Eye & Remove) */
+        .icon-btn {
+            background: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: #555;
+        }
+
+        .icon-btn:hover { background: #ddd; }
+        
+        /* Specific style for Remove button */
+        .remove-btn:hover {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        /* Specific style for Toggle button active state */
+        .toggle-btn.hidden-mode {
+            background: #e2e2e2;
+            color: #aaa;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toggle-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        button.primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button.secondary {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover { opacity: 0.9; }
+
+        /* Results Section */
+        #results-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 100%;
+            max-width: 1100px;
+            justify-content: center;
+        }
+
+        .item-chip {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0px 1px 3px rgba(0,0,0,0.8);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 1.1rem;
+            border: 2px solid rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .item-chip:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        /* Class to actually hide elements */
+        .item-chip.forced-hidden {
+            display: none;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>List Intersection Visualizer</h1>
+
+    <div class="controls">
+        <p>Upload text files. Use the <strong>Eye Icon</strong> to hide/show items unique to that specific list.</p>
+        
+        <div class="list-inputs" id="listContainer">
+            </div>
+
+        <div class="action-bar">
+            <button class="secondary" onclick="addListRow()">+ Add Another List</button>
+            <button class="primary" onclick="processLists()">Compare & Visualize</button>
+        </div>
+    </div>
+
+    <div class="legend" id="legendContainer"></div>
+    <div id="results-area"></div>
+
+    <svg style="display: none;">
+        <symbol id="icon-eye" viewBox="0 0 24 24">
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+        </symbol>
+        <symbol id="icon-eye-off" viewBox="0 0 24 24">
+            <path d="M11.83 9L15 12.17V12a3 3 0 00-3-3h-.17zm-4.3.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm-2.53 6.35L4.27 17C2.48 15.5 1.13 13.53 1 12c1.73-4.39 6-7.5 11-7.5 2.16 0 4.14.59 5.86 1.6l-1.9 1.9C14.79 7.23 13.43 7 12 7c-3.21 0-6.13 1.76-7.88 4.47.66 1.32 1.63 2.42 2.88 3.18zm15.16 3.71l-2.03 2.03-3.09-3.09c-1.55.97-3.37 1.53-5.32 1.53-5 0-9.27-3.11-11-7.5 1.13-2.88 3.39-5.14 6.13-6.4L2.89 4.35 4.14 3.1l15.86 15.86-1.84 1.84z"/>
+        </symbol>
+    </svg>
+
+    <script>
+        let listCounter = 0;
+
+        // Add the initial two rows
+        window.onload = () => {
+            addListRow();
+            addListRow();
+        };
+
+        function addListRow() {
+            listCounter++;
+            const container = document.getElementById('listContainer');
+            const row = document.createElement('div');
+            row.className = 'list-row';
+            row.id = `row-${listCounter}`;
+            
+            // Random default color
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+
+            row.innerHTML = `
+                <input type="color" id="color-${listCounter}" value="${randomColor}" title="Choose Color">
+                
+                <button class="icon-btn toggle-btn" id="toggle-btn-${listCounter}" onclick="toggleVisibility(${listCounter})" title="Hide unique items from this list">
+                     <svg><use href="#icon-eye" id="svg-use-${listCounter}"></use></svg>
+                </button>
+
+                <input type="text" id="name-${listCounter}" placeholder="List Name" value="List ${listCounter}">
+                <input type="file" id="file-${listCounter}" accept=".txt,.csv">
+                
+                <button class="icon-btn remove-btn" onclick="removeRow(${listCounter})" title="Remove List">X</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeRow(id) {
+            const row = document.getElementById(`row-${id}`);
+            if (row) row.remove();
+        }
+
+        // Toggle Visibility Logic
+        function toggleVisibility(id) {
+            const btn = document.getElementById(`toggle-btn-${id}`);
+            const svgUse = document.getElementById(`svg-use-${id}`);
+            const isHidden = btn.classList.contains('hidden-mode');
+
+            if (isHidden) {
+                // Switch to Visible
+                btn.classList.remove('hidden-mode');
+                svgUse.setAttribute('href', '#icon-eye');
+            } else {
+                // Switch to Hidden
+                btn.classList.add('hidden-mode');
+                svgUse.setAttribute('href', '#icon-eye-off');
+            }
+
+            // Apply changes to existing chips immediately
+            applyVisiblityFilters(id, !isHidden);
+        }
+
+        function applyVisiblityFilters(listId, shouldHide) {
+            // Find all unique chips belonging to this list ID
+            const chips = document.querySelectorAll(`.unique-to-list-${listId}`);
+            
+            chips.forEach(chip => {
+                if (shouldHide) {
+                    chip.classList.add('forced-hidden');
+                } else {
+                    chip.classList.remove('forced-hidden');
+                }
+            });
+        }
+
+        async function processLists() {
+            const container = document.getElementById('listContainer');
+            const rows = container.children;
+            const resultsArea = document.getElementById('results-area');
+            const legendArea = document.getElementById('legendContainer');
+            
+            resultsArea.innerHTML = 'Processing...';
+            legendArea.innerHTML = '';
+            
+            const processedLists = [];
+
+            // 1. Read all files
+            for (let row of rows) {
+                const id = row.id.split('-')[1];
+                const color = document.getElementById(`color-${id}`).value;
+                const name = document.getElementById(`name-${id}`).value;
+                const fileInput = document.getElementById(`file-${id}`);
+                
+                // Get current toggle state
+                const toggleBtn = document.getElementById(`toggle-btn-${id}`);
+                const isHidden = toggleBtn.classList.contains('hidden-mode');
+
+                if (fileInput.files.length > 0) {
+                    const text = await readFile(fileInput.files[0]);
+                    const values = new Set(
+                        text.split(/\r?\n/).map(v => v.trim()).filter(v => v !== '')
+                    );
+                    processedLists.push({ id, name, color, values, isHidden });
+                }
+            }
+
+            if (processedLists.length === 0) {
+                resultsArea.innerHTML = '<p>Please upload at least one file.</p>';
+                return;
+            }
+
+            // 2. Build the Legend
+            processedLists.forEach(list => {
+                legendArea.innerHTML += `
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:${list.color}"></div>
+                        <span>${list.name}</span>
+                    </div>
+                `;
+            });
+
+            // 3. Aggregate all unique values
+            const allValues = new Set();
+            processedLists.forEach(list => {
+                list.values.forEach(v => allValues.add(v));
+            });
+
+            // 4. Render Items
+            resultsArea.innerHTML = '';
+            const sortedValues = Array.from(allValues).sort();
+
+            sortedValues.forEach(value => {
+                const presentIn = processedLists.filter(list => list.values.has(value));
+                const colors = presentIn.map(p => p.color);
+                
+                const chip = document.createElement('div');
+                chip.className = 'item-chip';
+                chip.textContent = value;
+                chip.title = `Found in: ${presentIn.map(p => p.name).join(', ')}`;
+
+                // Style Logic
+                if (colors.length === 1) {
+                    // Unique Item
+                    chip.style.backgroundColor = colors[0];
+                    
+                    // Tag it with specific class for targeting
+                    const listId = presentIn[0].id;
+                    chip.classList.add(`unique-to-list-${listId}`);
+
+                    // Check if we should hide it initially based on button state
+                    if (presentIn[0].isHidden) {
+                        chip.classList.add('forced-hidden');
+                    }
+                } else {
+                    // Intersection Item
+                    chip.style.background = generateStripeGradient(colors);
+                }
+
+                resultsArea.appendChild(chip);
+            });
+        }
+
+        function readFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = (e) => reject(e);
+                reader.readAsText(file);
+            });
+        }
+
+        function generateStripeGradient(colors) {
+            const step = 100 / colors.length;
+            let gradientStr = 'linear-gradient(135deg';
+            colors.forEach((color, index) => {
+                const start = index * step;
+                const end = (index + 1) * step;
+                gradientStr += `, ${color} ${start}%, ${color} ${end}%`;
+            });
+            gradientStr += ')';
+            return gradientStr;
+        }
+    </script>
+</body>
+</html>

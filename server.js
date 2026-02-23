@@ -10,6 +10,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/spelllistcompare', (req, res) => {
+    // loading the homepage
+    res.sendFile(path.join(__dirname, 'views', 'list-comparison.html'));
+});
+
 app.use((req, res) => {
     res.status(404).send("<h1>404 - Page not found</h1>"); // replace this with a page for not found
 })
